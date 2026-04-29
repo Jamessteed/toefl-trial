@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Free TOEFL Writing Trial — James Steed</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -125,6 +131,9 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--cream);color:var(--
 .btn-upsell:hover{background:#b5822e;}
 .error-box{background:var(--red-bg);border:1px solid #fca5a5;border-radius:10px;padding:14px 16px;font-size:14px;color:var(--red);margin-top:12px;}
 </style>
+</head>
+<body>
+
 <div class="site-banner">James Steed — <span>The TOEFL Whisperer</span> &nbsp;|&nbsp; 35+ Years of TOEFL Analysis &amp; Teaching</div>
 
 <div class="hero">
@@ -252,6 +261,15 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--cream);color:var(--
       <p>James Steed personally reads, corrects, and scores your writing — then sends you detailed recommendations. Join the Strategic TOEFL Writing Program opening <strong>May 2026</strong>.</p>
       <a class="btn-upsell" href="mailto:jimsteed@hushmail.com">Email James to Get Started</a>
     </div>
+
+    <div style="background:#fff;border:1px solid #ddd5c0;border-radius:16px;padding:32px;text-align:center;margin-top:24px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+      <div style="font-size:28px;margin-bottom:10px;">📩</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:#1a3a5c;margin-bottom:10px;">Would You Like Personal Feedback from James?</h3>
+      <p style="font-size:14px;color:#6b6b6b;margin-bottom:20px;line-height:1.7;">Click the button below to send James your name, email, written responses, and scores. He will personally review your work and send you extra advice.</p>
+      <button onclick="sendResultsToJames()" style="background:#1a3a5c;color:#fff;border:none;padding:14px 28px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Source Sans 3',sans-serif;">Send My Results to James →</button>
+      <p style="font-size:12px;color:#aaa;margin-top:12px;">This will open your email app with everything pre-filled. Just click Send!</p>
+    </div>
+
   </div>
 </div>
 
@@ -644,4 +662,48 @@ async function evaluateWithAI(part,text){
     contentEl.innerHTML='<div class="error-box">Unable to generate feedback at this moment. Please contact James at <strong>jimsteed@hushmail.com</strong> for your personal evaluation.</div>';
   }
 }
+
+// ══════════════════════════════════════════════════════
+// SEND RESULTS TO JAMES
+// ══════════════════════════════════════════════════════
+function sendResultsToJames(){
+  var eScore=storedEmailScore!==null?storedEmailScore.toFixed(1):'Not yet evaluated';
+  var dScore=storedDiscScore!==null?storedDiscScore.toFixed(1):'Not yet evaluated';
+  var overall=(storedEmailScore!==null&&storedDiscScore!==null)?
+    (Math.round(((storedBasScore+storedEmailScore+storedDiscScore)/3)*2)/2).toFixed(1):'Pending';
+
+  var subject='Free Trial Results — '+studentName;
+  var body=
+    'Dear James,\n\n'+
+    'Please find below my free trial TOEFL Writing test results.\n\n'+
+    '==============================\n'+
+    'STUDENT INFORMATION\n'+
+    '==============================\n'+
+    'Name: '+studentName+'\n'+
+    'Email: '+studentEmail+'\n\n'+
+    '==============================\n'+
+    'SCORES\n'+
+    '==============================\n'+
+    'Part 1 — Build a Sentence: '+storedBasScore.toFixed(1)+' / 6.0\n'+
+    'Part 2 — Write an Email: '+eScore+' / 6.0\n'+
+    'Part 3 — Academic Discussion: '+dScore+' / 6.0\n'+
+    'Overall Score: '+overall+' / 6.0\n\n'+
+    '==============================\n'+
+    'PART 2 — MY EMAIL RESPONSE\n'+
+    '==============================\n'+
+    (emailText||'(No response entered)')+'\n\n'+
+    '==============================\n'+
+    'PART 3 — MY DISCUSSION RESPONSE\n'+
+    '==============================\n'+
+    (discussionText||'(No response entered)')+'\n\n'+
+    'I would appreciate any additional feedback you can provide.\n\n'+
+    'Thank you,\n'+studentName;
+
+  var mailto='mailto:jimsteed@hushmail.com'+
+    '?subject='+encodeURIComponent(subject)+
+    '&body='+encodeURIComponent(body);
+  window.location.href=mailto;
+}
 </script>
+</body>
+</html>
